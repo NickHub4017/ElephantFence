@@ -10,29 +10,43 @@ Serial.begin(9600);
 
 void loop() {
 //11011
-unsigned long x=  getIntervalofOnes();
-//Serial.print("Read ");
-Serial.println(x);
-int id=0;
-if(x>18000){//1000000000000000000001 ---Firstone=noramal pulse's last bit middle zeros=preamble last one=frist bit of node id
-  unsigned long p=getIntervalofOnes();
-  while(p<9000){
-    //Serial.println(p);
-    id=id+1;
-    p=getIntervalofOnes();
+//Read();
+int k=0;
+if(Read()>18000){
+  //Serial.println(Read());
+  while(Read()<8500){
+    k=k+1;
   }
-  if(id==4){
-  digitalWrite(outpin,!digitalRead(outpin));
-}
-  Serial.println(id);
+  if(k==4){
+    digitalWrite(outputpin,!digitalRead(outputpin));
+  }
+  //Serial.println(k);
 }
 
   
 }
+unsigned long Read(){
+  //unsigned long x=  getIntervalofOnes();
+  unsigned long y=  getIntervalofOnes();
+//Serial.print("Read ");
+  while(y<500){
+  y=  getIntervalofOnes();
+  //Serial.print("y -> ");
+  if (y>800){
+    return y;
+  }
+  
+}
 
+}
 unsigned long getIntervalofOnes(){
-  unsigned long time=millis();
+  unsigned long timestart=millis();
+  unsigned long timeend;
+    unsigned long gap;
   while(analogRead(A0)<=250){
   }
-  return (millis()-time);
+  timeend=millis();
+  gap=timeend-timestart;
+  
+  return gap;
 }

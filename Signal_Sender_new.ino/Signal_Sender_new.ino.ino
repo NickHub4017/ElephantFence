@@ -20,10 +20,10 @@ void loop() {
 
 
   sendNormal();
-  //sendPreamble();
-  //int nodeid = 5;
-  //sendNodeID(nodeid);
-  //senPostable();
+  sendPreamble();
+  int nodeid = 5;
+  sendNodeID(nodeid);
+  senPostable();
 
 }
 
