@@ -2,7 +2,7 @@
 void setup() {
 
  pinMode(13,OUTPUT);
-  pinMode(12,OUTPUT);
+  pinMode(12,INPUT);
   
 Serial.begin(9600);
 }
@@ -10,12 +10,15 @@ Serial.begin(9600);
 void loop() {
 
       digitalWrite(13,LOW);
+      unsigned long t=millis();
   int x=analogRead(A0);
-  if(x>250){
-    digitalWrite(13,HIGH);
+  Serial.println(x);
+  /*if(x>300){
+    while(x>300){
+      x=analogRead(A0);
+    }
 
-        digitalWrite(13,HIGH);
-Serial.println(x);
-  } 
 
+  }
+*/
 }

@@ -25,11 +25,6 @@ if(x>18000){//1000000000000000000001 ---Firstone=noramal pulse's last bit middle
       Serial.println("Found");
       digitalWrite(outputpin,!digitalRead(outputpin));
         }
-        else{
-          
-        }
-    }
-    else{
     }
   }
   
@@ -66,10 +61,7 @@ int getRead(){
 }
 unsigned long getIntervalofOnes(){
   unsigned long time=millis();
-  ////Serial.print(millis());
-    ////Serial.print(" ---> ");
   while(analogRead(A0)<=250){
   }
-    ////Serial.println(millis());
   return int(millis()-time);
 }
