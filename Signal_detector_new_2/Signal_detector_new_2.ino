@@ -20,26 +20,31 @@ if(Read()>18000){
 }
 
   
+//  unsigned long yp=Read();
+  //Serial.println( yp);
 }
 unsigned long Read(){
   //unsigned long x=  getIntervalofOnes();
   unsigned long y=  getIntervalofOnes();
-//Serial.print("Read ");
+  //Serial.println(y);
+  //Serial.println(y);
   while(y<500){
   y=  getIntervalofOnes();
-  //Serial.print("y -> ");
-  if (y>800){
+  //Serial.print(y);
+  if (y>550){
+ //     Serial.println(y);
     return y;
   }
   
 }
+return y;
 
 }
 unsigned long getIntervalofOnes(){
   unsigned long timestart=millis();
   unsigned long timeend;
     unsigned long gap;
-  while(analogRead(A0)<=250){
+  while(analogRead(A0)>900){
   }
   timeend=millis();
   gap=timeend-timestart;

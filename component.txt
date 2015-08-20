@@ -1,0 +1,25 @@
+http://www.diy-electronic-projects.com/p301-Static-Electricity-Negative-Ion-Detector
+2n3819 -1
+2.2k-1
+47k-1
+
+http://users.otenet.gr/~meteo/project_static-electricity-detector.html
+BF245-1
+
+http://users.otenet.gr/~meteo/project_static-electricity-detector.html
+2N3819-1
+1M-1
+50k vr-1
+
+http://www.circuitdiagram.org/static-electricity-detector.html
+2n3819-1
+220-1
+1k vr-1
+
+http://www.next.gr/sens-detectors/rf-radiation/Negative-Ions-Detector-Sensor-l7737.html
+PN2907-2
+PN2222-1
+10k-1
+5k vr -1
+100M-1
+470pf-1

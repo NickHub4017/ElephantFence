@@ -11,14 +11,18 @@ void loop() {
 
       digitalWrite(13,LOW);
       //unsigned long t=millis();
-  int x=getIntervalofOnes();
+//  int x=getIntervalofOnes();
  
-  if(x>300){
+  //if(x>0){
     
 
- //Serial.println(x);
+int x=analogRead(A0);
+if(x<900){
+
+ Serial.println(x);
+ }
  
-  }
+  //}
 
 }
 
