@@ -1,20 +1,22 @@
 int inputpin=12;
 int outputpin=13;
-int relaypin=9;
 unsigned long gap;
 void setup() {
   // put your setup code here, to run once:
 pinMode(inputpin,INPUT);
 pinMode(outputpin,OUTPUT);
-pinMode(relaypin,OUTPUT);
-
 Serial.begin(9600);
 }
 
 void loop() {
+//Serial.println( Read());
+  
 int k=0;
+//Serial.println( "None");
 if(Read()>18000){
+  //Serial.println( "IF - 01");
   while(Read()<8500){
+    //Serial.println(k);
     k=k+1;
   }
   if(k==4){
@@ -25,6 +27,7 @@ if(Read()>18000){
   
 //  unsigned long yp=Read();
   //Serial.println( yp);
+  
 }
 unsigned long Read(){
   //unsigned long x=  getIntervalofOnes();
@@ -47,7 +50,7 @@ unsigned long getIntervalofOnes(){
   unsigned long timestart=millis();
   unsigned long timeend;
     unsigned long gap;
-  while(analogRead(A0)>900){
+  while(analogRead(A0)<900){
   }
   timeend=millis();
   gap=timeend-timestart;

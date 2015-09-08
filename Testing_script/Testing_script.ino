@@ -17,7 +17,7 @@ void loop() {
     
 
 int x=analogRead(A0);
-if(x<900){
+if(x<500 ){
 
  Serial.println(x);
  }

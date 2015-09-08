@@ -20,11 +20,11 @@ void loop() {
 
 
   sendNormal();
-  sendPreamble();
+ /* sendPreamble();
   int nodeid = 5;
   sendNodeID(nodeid);
   senPostable();
-
+*/
 }
 
 void sendNormal() {
