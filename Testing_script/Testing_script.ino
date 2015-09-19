@@ -16,9 +16,12 @@ void loop() {
   //if(x>0){
     
 
-int x=analogRead(A0);
-if(x<500 ){
-
+int x;//=analogRead(A0);
+x=getIntervalofOnes();
+if(x>900 ){
+digitalWrite(13,HIGH);
+delay(20);
+digitalWrite(13,LOW);
  Serial.println(x);
  }
  
@@ -28,7 +31,7 @@ if(x<500 ){
 
 unsigned long getIntervalofOnes(){
   unsigned long time=millis();
-  while(analogRead(A0)<=250){
+  while(analogRead(A0)<100){
   }
   return (millis()-time);
 }

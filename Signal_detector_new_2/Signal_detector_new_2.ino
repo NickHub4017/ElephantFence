@@ -12,13 +12,19 @@ Serial.begin(9600);
 }
 
 void loop() {
+//  Serial.println(Read());
 int k=0;
-if(Read()>18000){
+if(Read()>13000){
   while(Read()<8500){
     k=k+1;
   }
-  if(k==4){
-    digitalWrite(outputpin,!digitalRead(outputpin));
+  if(k==6){
+    digitalWrite(outputpin,HIGH);
+
+    digitalWrite(relaypin,HIGH);
+    delay(4000);
+    digitalWrite(relaypin,LOW);
+        digitalWrite(outputpin,LOW);
   }
 }
 
@@ -47,7 +53,7 @@ unsigned long getIntervalofOnes(){
   unsigned long timestart=millis();
   unsigned long timeend;
     unsigned long gap;
-  while(analogRead(A0)>900){
+  while(analogRead(A0)<100){
   }
   timeend=millis();
   gap=timeend-timestart;

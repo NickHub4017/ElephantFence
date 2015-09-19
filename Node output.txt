@@ -1,0 +1,20 @@
+colour - arduino board pin
+
+Node 1
+yellow - Rx
+green  - Tx
+Orange - Reset
+Brown  - Ground
+
+Node 2
+Orange - reset
+Brown  - 5
+Ash    - ground
+Yellow - Rx
+Red    - Tx
+
+Node 3
+Ash - reset
+Green - ground
+Purple - Rx
+Blue - Tx

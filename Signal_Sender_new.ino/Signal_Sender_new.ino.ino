@@ -20,11 +20,26 @@ void loop() {
 
 
   sendNormal();
+  
   sendPreamble();
-  int nodeid = 5;
+  int nodeid = 4;
   sendNodeID(nodeid);
   senPostable();
+  sendTrail();
+  
+  sendPreamble();
+  nodeid = 6;
+  sendNodeID(nodeid);
+  senPostable();
+  sendTrail();
 
+}
+void sendTrail(){
+  int i=0;
+  
+  for (i = 0; i < 9; i++) {
+    sendOne();
+  }
 }
 
 void sendNormal() {
@@ -35,7 +50,7 @@ void sendNormal() {
 }
 void sendPreamble() {
   int i = 0;
-  for (i = 0; i < 20; i++) {
+  for (i = 0; i < 15; i++) {
     sendZero();
   }
 
@@ -52,7 +67,8 @@ void senPostable() {
 
 void sendNodeID(int x) {
   int i = 0;
-  for (i = 0; i < x; i++) {
+  
+  for (i = 0; i <=x; i++) {
           sendOne();
   }
 
