@@ -1,6 +1,8 @@
 int signalout = 8;
 int debugpin = 13;
 int lststate = HIGH;
+int is_check_pin=11;
+int is_not_check_pin=10;
 void setup() {
   // put your setup code here, to run once:
   pinMode(signalout, OUTPUT);
@@ -17,7 +19,8 @@ void loop() {
   else {
     lststate = HIGH;
   }
-
+  
+  if(digitalRead(is_check_pin)==HIGH){
 
   sendNormal();
   
@@ -27,12 +30,17 @@ void loop() {
   senPostable();
   sendTrail();
   
-  sendPreamble();
+}
+else if(digitalRead(is_not_check_pin)==HIGH){
+  sendPreamble();  
+}
+  
+/*  sendPreamble();
   nodeid = 6;
   sendNodeID(nodeid);
   senPostable();
   sendTrail();
-
+*/
 }
 void sendTrail(){
   int i=0;

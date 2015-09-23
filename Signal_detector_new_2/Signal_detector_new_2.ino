@@ -1,4 +1,4 @@
-int inputpin=12;
+ int inputpin=12;
 int outputpin=13;
 int relaypin=9;
 unsigned long gap;
@@ -18,7 +18,7 @@ if(Read()>13000){
   while(Read()<8500){
     k=k+1;
   }
-  if(k==6){
+  if(k==4){
     digitalWrite(outputpin,HIGH);
 
     digitalWrite(relaypin,HIGH);
