@@ -26,17 +26,21 @@ import java.util.logging.Logger;
  * @author NRV
  */
 public class ElephantFence  implements SerialPortEventListener{
+    
  static SerialPort serialPort;
         /** The port we're normally going to use. */
     private static final String PORT_NAMES[] = { 
             
             "COM23", // Windows
     };
+
     /**
-    * A BufferedReader which will be fed by a InputStreamReader 
-    * converting the bytes into characters 
-    * making the displayed results codepage independent
-    */
+     * A BufferedReader which will be fed by a InputStreamReader
+     * converting the bytes into characters
+     * making the displayed results codepage independent
+     */
+
+    
     private BufferedReader input;
     /** The output stream to the port */
     private OutputStream output;
@@ -111,10 +115,7 @@ public class ElephantFence  implements SerialPortEventListener{
             try {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
-                OutputStream x=serialPort.getOutputStream();
-                if(inputLine.contains("control")){
-                  x.write("5".getBytes());
-                }
+                FenceVisual.recevdata(inputLine);
                   
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -122,12 +123,13 @@ public class ElephantFence  implements SerialPortEventListener{
         }
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
-
-    public static void main(String[] args) throws Exception {
-        ElephantFence main = new ElephantFence();
-        main.initialize();
-      
-      
-        System.out.println("Started");
+    
+    public void sendData(String id) throws IOException{
+    OutputStream x=serialPort.getOutputStream();
+                
+    x.write(id.getBytes());
+                
     }
+
+    
 }
