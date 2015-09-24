@@ -4,6 +4,7 @@ int inp0_send = 5;
 int inp1_send = 6;
 int get_detect_ok = 7;
 int get_detect_not_ok = 8;
+int send_trail_status = 12;
 void setup() {
   // put your setup code here, to run once:
   pinMode(ls_check_send, OUTPUT);
@@ -12,6 +13,7 @@ void setup() {
   pinMode(inp1_send, OUTPUT);
   pinMode(get_detect_ok, INPUT);
   pinMode(get_detect_not_ok, INPUT);
+    pinMode(send_trail_status, INPUT);
   pinMode(13, OUTPUT);
   Serial.begin(9600);
 
@@ -29,6 +31,8 @@ void loop() {
     int x = Serial.read();
     digitalWrite(ls_not_check_send, LOW);
     digitalWrite(ls_check_send, HIGH);
+    Serial.print(x);
+        Serial.println(" ack");
     if (x == 52) {
       digitalWrite(inp0_send, LOW);
       digitalWrite(inp1_send, HIGH);
@@ -45,16 +49,42 @@ void loop() {
       digitalWrite(inp1_send, HIGH);
     }
     digitalWrite(13, LOW);
-    while ((digitalRead(get_detect_ok) == LOW) && (digitalRead(get_detect_not_ok) == LOW)) {
+    int count_fail = 0;
+    int count_sucess = 0;
+    while (analogRead(A0)<= 100) {
       digitalWrite(13, HIGH);
     }
-    digitalWrite(13, LOW);
-    if (digitalRead(get_detect_ok) == HIGH) {
-    }
-    else if (digitalRead(get_detect_ok) == HIGH) {
-    }
+
     digitalWrite(ls_not_check_send, HIGH);
     digitalWrite(ls_check_send, LOW);
+    
+    while (analogRead(A0)> 100) {
+
+      if (digitalRead(get_detect_ok) == HIGH) {
+        count_sucess++;
+      }
+      if (digitalRead(get_detect_not_ok) == HIGH) {
+        count_fail++;
+      }
+    }
+    
+
+    digitalWrite(13, LOW);
+
+    digitalWrite(ls_not_check_send, HIGH);
+    digitalWrite(ls_check_send, LOW);
+    
+    
+    if (count_sucess >= count_fail) {
+      Serial.print(x);
+      Serial.println (" done");
+
+    }
+    else {
+      Serial.print(x);
+      Serial.println(" fail");
+            
+    }
   }
   else {
     digitalWrite(ls_not_check_send, HIGH);

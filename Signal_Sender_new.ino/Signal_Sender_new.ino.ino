@@ -5,7 +5,7 @@ int is_check_pin = 11;
 int is_not_check_pin = 10;
 int idno_in1 = 6;
 int idno_in2 = 7;
-int trail_notify = 5;
+int trail_notify = 4;
 void setup() {
   // put your setup code here, to run once:
   pinMode(signalout, OUTPUT);
@@ -29,7 +29,7 @@ void loop() {
 
 
 
-  if (digitalRead(is_check_pin) == HIGH) {
+  if (digitalRead(is_check_pin) == HIGH && digitalRead(is_not_check_pin) == LOW) {
     Serial.println("check");
     int nodeid = 0;
     while ((digitalRead(idno_in1) == LOW) && (digitalRead(idno_in2) == LOW)) {
@@ -57,7 +57,9 @@ void loop() {
         Serial.print("postable ");
     senPostable();
         Serial.print("trail ");
+        digitalWrite(trail_notify, HIGH);
     sendTrail();
+      digitalWrite(trail_notify, LOW);
     Serial.println("Done");
   }
 
@@ -74,13 +76,13 @@ void loop() {
 
 }
 void sendTrail() {
-  digitalWrite(trail_notify, HIGH);
+  
   int i = 0;
 
   for (i = 0; i < 9; i++) {
     sendOne();
   }
-  digitalWrite(trail_notify, LOW);
+
 }
 
 void sendNormal() {
