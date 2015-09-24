@@ -66,7 +66,7 @@ void loop() {
   else if (digitalRead(is_not_check_pin) == HIGH) {
         Serial.println("not check");
     digitalWrite(debugpin, HIGH);
-    sendNormal();
+    sendOne();
     digitalWrite(debugpin, LOW);
   }
 

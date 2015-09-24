@@ -16,7 +16,8 @@ void setup() {
     pinMode(send_trail_status, INPUT);
   pinMode(13, OUTPUT);
   Serial.begin(9600);
-
+delay(1000);
+  Serial.println("control ready");
 }
 
 void loop() {
@@ -29,21 +30,22 @@ void loop() {
   digitalWrite(ls_check_send, LOW);
   if (Serial.available() > 0) {
     int x = Serial.read();
+    x=x-48;
     digitalWrite(ls_not_check_send, LOW);
     digitalWrite(ls_check_send, HIGH);
     Serial.print(x);
         Serial.println(" ack");
-    if (x == 52) {
+    if (x == 4) {
       digitalWrite(inp0_send, LOW);
       digitalWrite(inp1_send, HIGH);
     }
-    else if (x == 53) {
+    else if (x == 5) {
 
       digitalWrite(inp0_send, HIGH);
       digitalWrite(inp1_send, LOW);
 
     }
-    else if (x == 54) {
+    else if (x == 6) {
 
       digitalWrite(inp0_send, HIGH);
       digitalWrite(inp1_send, HIGH);
