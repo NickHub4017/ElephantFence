@@ -4,6 +4,14 @@
  * and open the template in the editor.
  */
 
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package elephantfence;
 
 import gnu.io.CommPortIdentifier;
@@ -25,13 +33,13 @@ import java.util.logging.Logger;
  *
  * @author NRV
  */
-public class ElephantFence  extends Thread implements SerialPortEventListener{
+public class Detector extends Thread implements SerialPortEventListener{
     
  static SerialPort serialPort;
         /** The port we're normally going to use. */
     private static final String PORT_NAMES[] = { 
             
-            "COM4", // Windows
+            "COM5", // Windows
     };
 
     /**
@@ -52,7 +60,7 @@ public class ElephantFence  extends Thread implements SerialPortEventListener{
     public void initialize() {
                 // the next line is for Raspberry Pi and 
                 // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
-                System.setProperty("gnu.io.rxtx.SerialPorts", "COM4");
+                System.setProperty("gnu.io.rxtx.SerialPorts", "COM5");
 
         CommPortIdentifier portId = null;
         Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -115,7 +123,8 @@ public class ElephantFence  extends Thread implements SerialPortEventListener{
             try {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
-                FenceVisual.updatedata(inputLine,true);
+                FenceVisual.updatedata(inputLine,false);
+                
                   
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -130,12 +139,13 @@ public class ElephantFence  extends Thread implements SerialPortEventListener{
     x.write(id.getBytes());
                 
     }
-
-    @Override
+@Override
     public void run() {
         super.run(); //To change body of generated methods, choose Tools | Templates.
         initialize();
+        
     }
-
+    
     
 }
+

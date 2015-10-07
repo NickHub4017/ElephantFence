@@ -3,7 +3,7 @@ data=x.readlines()
 cnt=0;
 for i in data:
     i=int(i)
-    if(i>1500):
+    if(i<600):
         cnt=cnt+1
         print ""+str(i) +" "
         

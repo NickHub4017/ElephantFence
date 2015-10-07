@@ -21,7 +21,10 @@ public class FenceVisual extends javax.swing.JFrame {
     /**
      * Creates new form FenceVisual
      */
-   static ElephantFence main;
+    static boolean receved=false;
+    static String selectnode="0";
+   static ElephantFence sender;
+   static  Detector detector;
     public FenceVisual() {
         initComponents();
        
@@ -112,7 +115,10 @@ public class FenceVisual extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         try{
-       main.sendData("4");
+       sender.sendData("4");
+       detector.sendData("4");
+       selectnode="4";
+       receved=false;
         }catch(Exception e){
         }
         
@@ -121,7 +127,10 @@ public class FenceVisual extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         try{
-       main.sendData("5");
+       sender.sendData("5");
+       detector.sendData("5");
+       selectnode="5";
+       receved=false;
         }catch(Exception e){
         }
     }//GEN-LAST:event_jButton2MouseClicked
@@ -133,7 +142,10 @@ public class FenceVisual extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         try{
-       main.sendData("6");
+       sender.sendData("6");
+       detector.sendData("6");
+       selectnode="6";
+       receved=false;
         }catch(Exception e){
         }
     }//GEN-LAST:event_jButton3MouseClicked
@@ -171,9 +183,17 @@ public class FenceVisual extends javax.swing.JFrame {
 
         /* Create and display the form */
         DBLink x=new DBLink();
-        main = new ElephantFence();
-        main.initialize();
-      
+        detector = new Detector();
+        detector.start();
+       try {
+           Thread.sleep(3000);
+       } catch (InterruptedException ex) {
+           Logger.getLogger(FenceVisual.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        sender = new ElephantFence();
+        sender.start();
+       
+        
       
         System.out.println("Started");
         
@@ -186,59 +206,115 @@ public class FenceVisual extends javax.swing.JFrame {
         });
     }
     
-   public static void recevdata(String data){
-       System.out.println("---> "+data);
-       if (data.contains("control")){
+    public static void recevdataDetector(String rawdata){
+     String[] data=rawdata.split(" ");
+        if(data[0].contains("#d")){
+                if(data[1].equals("4")){
+                    jButton1.setBackground(Color.GREEN);
+                    receved=true;
+           
+                }
+                else if(data[1].equals("5")){
+                    jButton2.setBackground(Color.GREEN);
+                     receved=true;
+           
+                }
+                else if(data[1].equals("6")){
+                    jButton3.setBackground(Color.GREEN);
+                     receved=true;
+                }
+            
+        }
+    }
+    
+   public static void recevdataSender(String rawdata){
+//       System.out.println("---> "+data);
+     String[] data=rawdata.split(" ");
+       System.out.println("Test rec"+receved);
+    if(data[0].contains("#s")){   
+       if (data[1].contains("online")){
            jButton1.setBackground(Color.ORANGE);
            jButton2.setBackground(Color.ORANGE);
            jButton3.setBackground(Color.ORANGE);
            
        }
-       if (data.contains("ack")){
-           String[] j=data.split(" ");
-           if(j[0].equals("4")){
+       if (data.length==3 && data[2].contains("ack")){
+           String j=data[1];
+           if(j.equals("4")){
                jButton1.setBackground(Color.YELLOW);
            }
-           else if(j[0].equals("5")){
+           else if(j.equals("5")){
                jButton2.setBackground(Color.YELLOW);
            }
-           else if(j[0].equals("6")){
+           else if(j.equals("6")){
                jButton3.setBackground(Color.YELLOW);
            }
-           
+       }
+       
+       if (data[1].contains("normal")){
            
        }
-       if (data.contains("done")){
-           String[] j=data.split(" ");
-           if(j[0].equals("4")){
-               jButton1.setBackground(Color.GREEN);
-           }
-           else if(j[0].equals("5")){
-               jButton2.setBackground(Color.GREEN);
-           }
-           else if(j[0].equals("6")){
-               jButton3.setBackground(Color.GREEN);
-           }
-           
+       
+       if (data[1].contains("preamble")){
            
        }
-       if (data.contains("fail")){
-           String[] j=data.split(" ");
-           if(j[0].equals("4")){
+       
+       if (data[1].contains("nodeid")){
+           
+       }
+       
+       if (data[1].contains("postable")){
+           
+       }
+       
+       if (data.length==3 && data[2].contains("trail")){
+           String j=data[1];
+           try {
+               detector.sendData("R");
+               //detector.sendData(selectnode);
+           } catch (IOException ex) {
+               System.out.println("Error in sending to detector");
+           }
+           
+       }
+       
+       if (data.length==3 && data[2].contains("end_trail")){
+           //System.out.println("in if "+receved);
+           if( !receved){
+               
+               
+                
+            String jp=data[1];
+                    System.out.println(jp);
+           if(jp.equals("4")){
                jButton1.setBackground(Color.RED);
            }
-           else if(j[0].equals("5")){
+           else if(jp.equals("5")){
                jButton2.setBackground(Color.RED);
            }
-           else if(j[0].equals("6")){
+           else if(jp.equals("6")){
                jButton3.setBackground(Color.RED);
            }
-           
+       
+       
+           }
            
        }
        
-       
+   }    
    }
+   
+    public static void updatedata(String data,boolean isfromSender) { 
+    synchronized (FenceVisual.class) {
+        if(isfromSender){
+             recevdataSender(data);
+        }
+        else{
+            recevdataDetector(data);
+        }
+    }
+  }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

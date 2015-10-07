@@ -16,16 +16,38 @@ void loop() {
   //if(x>0){
     
 
-int x;//=analogRead(A0);
-x=getIntervalofOnes();
+int x=Read();
+if(x>400){
+ Serial.println(x);
+}
+ /*
+//x=getIntervalofOnes();
 if(x>900 ){
 digitalWrite(13,HIGH);
 delay(20);
 digitalWrite(13,LOW);
  Serial.println(x);
  }
- 
+ */
   //}
+
+}
+
+unsigned long Read(){
+  //unsigned long x=  getIntervalofOnes();
+  unsigned long y=  getIntervalofOnes();
+  //Serial.println(y);
+  //Serial.println(y);
+  while(y<500){
+  y=  getIntervalofOnes();
+  //Serial.print(y);
+  if (y>550){
+ //     Serial.println(y);
+    return y;
+  }
+  
+}
+return y;
 
 }
 

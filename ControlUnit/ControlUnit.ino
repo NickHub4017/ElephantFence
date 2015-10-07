@@ -18,6 +18,7 @@ void setup() {
   Serial.begin(9600);
 delay(1000);
   Serial.println("control ready");
+    Serial.println("control ready");
 }
 
 void loop() {
@@ -80,12 +81,14 @@ void loop() {
     if (count_sucess >= count_fail) {
       Serial.print(x);
       Serial.println (" done");
-
+Serial.print(x);
+      Serial.println (" done");
     }
     else {
       Serial.print(x);
       Serial.println(" fail");
-            
+      Serial.print(x);
+      Serial.println(" fail");            
     }
   }
   else {

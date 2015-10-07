@@ -3,70 +3,45 @@ int debugpin = 13;
 int lststate = HIGH;
 int is_check_pin = 3;
 int is_not_check_pin = 5;
-int trailrelay = 7;
+int idno_in1 = 6;
+int idno_in2 = 7;
 int trail_notify = 4;
 void setup() {
   // put your setup code here, to run once:
   pinMode(signalout, OUTPUT);
   pinMode(debugpin, OUTPUT);
   pinMode(is_check_pin, INPUT);
-  pinMode(trailrelay, OUTPUT);
+  pinMode(is_not_check_pin, INPUT);
+  pinMode(idno_in1, INPUT);
+  pinMode(idno_in2, INPUT);
   pinMode(trail_notify, OUTPUT);
-  
   Serial.begin(9600);
-  Serial.println("#s online");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
-
-
-  if (Serial.available() > 0) {
-    Serial.println("#s check");
-    int nodeid = Serial.read();
-    nodeid = nodeid - 48;
-    Serial.print("#s ");
-    Serial.print(nodeid);
-        Serial.println(" ack");
-    Serial.println("#s normal");
+    Serial.print("normal@id ");
     sendNormal();
-    Serial.println("#s preamble ");
+        Serial.print("preamble ");
     sendPreamble();
-    Serial.println("#s sendid ");
-    sendNodeID(nodeid);
-    Serial.println("#s postable ");
+        Serial.print("sendid ");
+    sendNodeID(4);
+        Serial.print("postable ");
     senPostable();
-    sendOne();
-     Serial.print("#s ");
-    Serial.print(nodeid);
-    Serial.println(" trail ");
+        Serial.print("trail ");
+        digitalWrite(trail_notify, HIGH);
     sendTrail();
-        Serial.print("#s ");
-    Serial.print(nodeid);
-    Serial.println(" end_trail ");
-    Serial.println("#s End");
-  }
-
-  else {
-    //Serial.println("#s not_check");
-    sendOne();
-
-  }
-
-
-
-
+      digitalWrite(trail_notify, LOW);
+    Serial.println("Done");
+  
 
 }
 void sendTrail() {
-digitalWrite(trailrelay,HIGH);
+  
   int i = 0;
 
-  for (i = 0; i < 8; i++) {
-    sendZero();
+  for (i = 0; i < 9; i++) {
+    sendOne();
   }
-  digitalWrite(trailrelay,LOW);
 
 }
 

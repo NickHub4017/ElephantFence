@@ -18,7 +18,8 @@ if(Read()>13000){
   while(Read()<8500){
     k=k+1;
   }
-  if(k==4){
+  Serial.println(k);
+  if(k==6){
     digitalWrite(outputpin,HIGH);
 
     digitalWrite(relaypin,HIGH);
@@ -44,7 +45,7 @@ unsigned long Read(){
  //     Serial.println(y);
     return y;
   }
-  
+ 
 }
 return y;
 
